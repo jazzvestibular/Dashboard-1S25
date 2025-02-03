@@ -8,7 +8,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from gamificacao import ler_planilha
 
 def define_estado():
     return {
@@ -19,7 +19,7 @@ def get_estado():
     if 'estado' not in st.session_state:
         st.session_state.estado = define_estado()
     return st.session_state.estado
-
+'''
 def ler_planilha(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
     creds = None
     values2 = pd.DataFrame()  # Inicializando a variável
@@ -56,7 +56,7 @@ def ler_planilha(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
         st.error(f"Erro ao ler a planilha: {err}")
 
     return values2
-
+'''
 def ChangeButtonColour(widget_label, font_color, background_color='transparent'):
         htmlstr = f"""
             <script>
