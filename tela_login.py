@@ -1,12 +1,14 @@
 import streamlit as st
 import streamlit.components.v1 as components
-#from presenca_alunos import ler_planilha, ler_planilha2
 import pandas as pd
+import plotly.graph_objects as go
+import os.path
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
 
 def define_estado():
     return {
