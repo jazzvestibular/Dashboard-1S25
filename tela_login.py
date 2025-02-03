@@ -1,6 +1,12 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from presenca_alunos import ler_planilha, ler_planilha2
+#from presenca_alunos import ler_planilha, ler_planilha2
+import pandas as pd
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 def define_estado():
     return {
@@ -11,6 +17,43 @@ def get_estado():
     if 'estado' not in st.session_state:
         st.session_state.estado = define_estado()
     return st.session_state.estado
+
+def ler_planilha(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME):
+    creds = None
+    values2 = pd.DataFrame()  # Inicializando a variável
+
+    if os.path.exists("token_gami.json"):
+        creds = Credentials.from_authorized_user_file("token_gami.json", SCOPES)
+
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "credentials_gami.json", SCOPES
+            )
+            creds = flow.run_local_server(port=8080)
+
+        with open("token_gami.json", "w") as token:
+            token.write(creds.to_json())
+
+    try:
+        service = build("sheets", "v4", credentials=creds)
+        sheet = service.spreadsheets()
+        result = (
+            sheet.values()
+            .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME)
+            .execute()
+        )
+
+        values = result.get("values", [])
+    
+        values2 = pd.DataFrame(values[1:], columns=values[0])
+
+    except HttpError as err:
+        st.error(f"Erro ao ler a planilha: {err}")
+
+    return values2
 
 def ChangeButtonColour(widget_label, font_color, background_color='transparent'):
         htmlstr = f"""
