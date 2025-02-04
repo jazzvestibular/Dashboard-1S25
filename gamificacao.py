@@ -646,7 +646,7 @@ def mostrar_gamificacao(nome, permissao, email):
     update_progress(70)
 
     presenca_nota_simulado = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Streamlit | Presença + Notas simulado!A1:R")
-    
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     update_progress(80)
