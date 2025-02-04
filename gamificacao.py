@@ -815,7 +815,7 @@ def mostrar_gamificacao(nome, permissao, email):
         gamificacao3 = gamificacao3[gamificacao3['Pontuação'] >= 0]
 
         #pont_niveis = [400, 1000, 1900, 2800, 3700, 5000]
-        pont_niveis = [400, 1000, 1900, 3000, 4300, 5600]
+        pont_niveis = [500, 1100, 2000, 3200, 4300, 5600]
 
         gamificacao3['Nível'] = gamificacao3['Pontuação'].apply(definir_nivel, args=(pont_niveis[0], pont_niveis[1], pont_niveis[2], pont_niveis[3], pont_niveis[4], pont_niveis[5]))
         
