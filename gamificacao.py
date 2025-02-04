@@ -562,6 +562,7 @@ def mostrar_gamificacao(nome, permissao, email):
     st.markdown('<style>td { border-right: none !important; }</style>', unsafe_allow_html=True)
 
     alunos = ler_planilha("1ZV1FbgJ5gb_uRyPaYddDUqIn7RlApPhtVxd5x0Mbsy4", "Streamlit | Alunos!A1:E")
+    alunos = alunos[(alunos['Turma'] == 'Manhã') | (alunos['Turma'] == 'Tarde')]
 
     alunos['Nome'] = alunos['Nome'].fillna('').astype(str)
     alunos = alunos[alunos['Nome'] != '']
