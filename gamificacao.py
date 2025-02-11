@@ -573,13 +573,13 @@ def mostrar_gamificacao(nome, permissao, email, turma):
             alunos = alunos[alunos['Turma'].str.contains("Esparta")]
 
     elif "Esparta 2º" in turma:
-        turmas == 'Esparta 2º'
+        turmas = 'Esparta 2º'
         alunos = alunos[alunos['Turma'].str.contains("Esparta 2º")]
     elif "Esparta 3º" in turma:
-        turmas == 'Esparta 3º'
+        turmas = 'Esparta 3º'
         alunos = alunos[alunos['Turma'].str.contains("Esparta 3º")]
     else:
-        turmas == 'Extensivo'
+        turmas = 'Extensivo'
         alunos = alunos[~alunos['Turma'].str.contains("Esparta")]
 
     alunos['Nome'] = alunos['Nome'].fillna('').astype(str)
