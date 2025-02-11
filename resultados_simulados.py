@@ -242,7 +242,6 @@ def tabela_arguicao(df):
                     </tr>
                     """, unsafe_allow_html=True)
 
-
 def tabela_assuntos(df):
 
     st.markdown("""
@@ -990,7 +989,6 @@ def criar_histograma_2fase(resultados, nome_aluno):
 
     st.plotly_chart(fig, use_container_width=True)
 
-
 def criar_histograma_acertos(resultados, nome_aluno, limite_max):
     
     st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
@@ -1123,7 +1121,7 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
     # 7. Mostrar o gráfico no Streamlit
     st.plotly_chart(fig, use_container_width=True)   
 
-def mostrar_resultados_simulados(nome, permissao, email):
+def mostrar_resultados_simulados(nome, permissao, email, turma):
 
     import time
     start_time = time.time()
@@ -1150,6 +1148,15 @@ def mostrar_resultados_simulados(nome, permissao, email):
     alunos['Nome'] = alunos['Nome'].fillna('').astype(str)
     alunos = alunos[alunos['Nome'] != '']
 
+    if "Esparta 2º" in turma:
+        alunos = alunos[alunos['Turma'].str.contains("Esparta 2º")]
+    elif "Esparta 3º" in turma:
+        alunos = alunos[alunos['Turma'].str.contains("Esparta 3º")]
+    elif (turma == None or turma == "-"):
+        alunos = alunos
+    else:
+        alunos = alunos[~alunos['Turma'].str.contains("Esparta")]
+
     #alunos_sn = ler_planilha("1aAxlTljt6SNvrZQSbHbZrhlG1EBfdidWCbFaFkz9EqU", "Inscritos!A1:E")
     #alunos_sn['Nome'] = alunos_sn['Nome'].fillna('').astype(str)
     #alunos_sn = alunos_sn[alunos_sn['Nome'] != '']
@@ -1173,6 +1180,8 @@ def mostrar_resultados_simulados(nome, permissao, email):
             st.warning("Por favor, escolha um(a) aluno(a)!")
             st.stop()
 
+        turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma'].iloc[0]
+
         data_hoje_brasilia, hora_atual_brasilia = dia_hora()
         data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", nome_selecionado, email]]
         escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
@@ -1182,7 +1191,19 @@ def mostrar_resultados_simulados(nome, permissao, email):
 
     if permissao != 'Inscrito Simulado Nacional':
 
-        simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] # + ['Simulado Insper 01'] + ['Simulado Insper 02'] + ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+        if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
+
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01']# + ['Simulado Insper 02'] + ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+
+        elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
+
+            simulados = ["Escolha o simulado"]
+
+        elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º'):
+
+            simulados = ["Escolha o simulado"]
+
+        
 
         simulado_selecionado = st.selectbox('Selecione o simulado:', simulados)
 
@@ -1195,8 +1216,8 @@ def mostrar_resultados_simulados(nome, permissao, email):
 
         if simulado_selecionado == 'Simulado Insper 01':
 
-            base_resultados_insper1 = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 01!A1:L4000")
-            base_redacao_insper1 = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 01!A1:J22000")
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 01!A1:L4000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 01!A1:J22000")
 
         elif simulado_selecionado == 'Simulado Insper 02':
 
@@ -2716,7 +2737,7 @@ def mostrar_resultados_simulados(nome, permissao, email):
 
             if permissao == 'Aluno':
 
-                st.warning("🚨 **Atenção!** 🚨\n\nVocê ainda não realizou esse simulado de 1ª fase ainda! Caso já tenha sido feito, é importante entrar em contato com o Padre o mais rápido possível.")
+                st.warning("🚨 **Atenção!** 🚨\n\nVocê ainda não realizou esse simulado de 1ª fase ainda! Caso já tenha sido feito há mais de 24h, entre em contato com Padre!")
 
             elif (permissao == 'Mentor' or permissao == 'Administrador'):
 

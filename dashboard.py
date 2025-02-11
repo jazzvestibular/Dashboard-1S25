@@ -30,7 +30,7 @@ def get_estado():
         st.session_state.estado = define_estado()
     return st.session_state.estado
 
-def mostrar_botoes(permissao, nome, email):
+def mostrar_botoes(permissao, nome, email, turma):
 
     estado = get_estado()
 
@@ -107,24 +107,24 @@ def mostrar_botoes(permissao, nome, email):
         if all(not botao for botao in botoes_menu) and estado['pagina_atual'][:6] == 'Alunos':
             estado = get_estado()
             #estado['pagina_atual'] = 'Alunos'
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
 
         elif botao_clicado1 or estado['pagina_atual'][:6] == 'Alunos':
             estado = get_estado()
             #estado['pagina_atual'] = 'Alunos'
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
             
 
         if botao_clicado2 or estado['pagina_atual'] == 'Professores':
             estado = get_estado()
             estado['pagina_atual'] = 'Professores'
-            mostrar_professores(nome, permissao, email)
+            mostrar_professores(nome, permissao, email, turma)
 
         if botao_clicado9 or estado['pagina_atual'] == 'Mentoria':
             estado = get_estado()
             estado['pagina_atual'] = 'Mentoria'
 
-            mostrar_mentoria(nome, permissao, email)
+            #mostrar_mentoria(nome, permissao, email, turma)
 
     elif permissao == "Time":
 
@@ -167,17 +167,17 @@ def mostrar_botoes(permissao, nome, email):
         if all(not botao for botao in botoes_menu):
             estado = get_estado()
             estado['pagina_atual'] = 'Alunos'
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
 
         if botao_clicado1:
             estado = get_estado()
             estado['pagina_atual'] = 'Alunos'
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
 
         if botao_clicado2:
             estado = get_estado()
             estado['pagina_atual'] = 'Professores'
-            mostrar_professores(nome, permissao, email)
+            mostrar_professores(nome, permissao, email, turma)
         
         if botao_clicado9:
             estado = get_estado()
@@ -237,22 +237,22 @@ def mostrar_botoes(permissao, nome, email):
         if all(not botao for botao in botoes_menu):
             estado = get_estado()
             #estado['pagina_atual'] = 'Alunos'
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
 
         if botao_clicado1:
             estado = get_estado()
             #estado['pagina_atual'] = 'Alunos'
 
-            mostrar_alunos(nome, permissao, email)
+            mostrar_alunos(nome, permissao, email, turma)
 
 
 from tela_login import mostrar_tela_login
 
 if __name__ == "__main__":
     
-    login, permissao, nome, email = mostrar_tela_login()
+    login, permissao, nome, email, turma = mostrar_tela_login()
     if login:
-        mostrar_botoes(permissao, nome, email)
+        mostrar_botoes(permissao, nome, email, turma)
         if get_estado()['pagina_atual'] == 'Página Inicial':
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]

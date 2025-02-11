@@ -26,7 +26,7 @@ def get_estado():
         st.session_state.estado = define_estado()
     return st.session_state.estado
 
-def mostrar_alunos(nome, permissao, email):
+def mostrar_alunos(nome, permissao, email, turma):
     estado = get_estado()
 
     def ChangeButtonColour(widget_label, font_color, background_color='transparent'):
@@ -78,21 +78,21 @@ def mostrar_alunos(nome, permissao, email):
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_gamificacao(nome, permissao, email)
+            mostrar_gamificacao(nome, permissao, email, turma)
 
         elif botao_clicado12:
             estado['pagina_atual'] = 'Alunos - Gamificação'
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_gamificacao(nome, permissao, email)
+            mostrar_gamificacao(nome, permissao, email, turma)
 
         if botao_clicado10 or estado['pagina_atual'] == 'Alunos - Presença nas aulas':
             estado['pagina_atual'] = 'Alunos - Presença nas aulas'
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_presenca_aulas(nome, permissao, email)
+            mostrar_presenca_aulas(nome, permissao, email, turma)
 
         if botao_clicado11:
             estado['pagina_atual'] = 'Alunos - Engajamento na plataforma'
@@ -105,7 +105,7 @@ def mostrar_alunos(nome, permissao, email):
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_resultados_simulados(nome, permissao, email)
+            mostrar_resultados_simulados(nome, permissao, email, turma)
 
     elif (permissao == 'Aluno' or permissao == 'Mentor' or permissao == 'Responsável'):
 
@@ -143,14 +143,14 @@ def mostrar_alunos(nome, permissao, email):
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_gamificacao(nome, permissao, email)
+            mostrar_gamificacao(nome, permissao, email, turma)
 
         elif botao_clicado12:
             estado['pagina_atual'] = 'Alunos - Gamificação'
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_gamificacao(nome, permissao, email)
+            mostrar_gamificacao(nome, permissao, email, turma)
 
         #elif botao_clicado10:
         #    estado['pagina_atual'] = 'Alunos - Presença nas aulas'
@@ -164,7 +164,7 @@ def mostrar_alunos(nome, permissao, email):
             data_hoje_brasilia, hora_atual_brasilia = dia_hora()
             data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
             escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-            mostrar_resultados_simulados(nome, permissao, email)
+            mostrar_resultados_simulados(nome, permissao, email, turma)
 
         #elif botao_clicado10 or estado['pagina_atual'] == 'Alunos - Presença nas aulas':
         #    estado['pagina_atual'] = 'Alunos - Presença nas aulas'
@@ -222,7 +222,7 @@ def mostrar_alunos(nome, permissao, email):
         data_hoje_brasilia, hora_atual_brasilia = dia_hora()
         data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", "", email]]
         escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
-        mostrar_resultados_simulados(nome, permissao, email)
+        mostrar_resultados_simulados(nome, permissao, email, turma)
 
 
     

@@ -552,7 +552,7 @@ def grafico_pontuacao_semanal(gamificacao, nome_selecionado, esferas_selecionada
 
     st.plotly_chart(fig, use_container_width=True)  # O gráfico usará toda a largura do container
 
-def mostrar_gamificacao(nome, permissao, email):
+def mostrar_gamificacao(nome, permissao, email, turma):
 
     import time
     start_time = time.time()
@@ -562,7 +562,22 @@ def mostrar_gamificacao(nome, permissao, email):
     st.markdown('<style>td { border-right: none !important; }</style>', unsafe_allow_html=True)
 
     alunos = ler_planilha("1ZV1FbgJ5gb_uRyPaYddDUqIn7RlApPhtVxd5x0Mbsy4", "Streamlit | Alunos!A1:E")
-    alunos = alunos[(alunos['Turma'] == 'Manhã') | (alunos['Turma'] == 'Tarde')]
+    if (turma is None or turma == "-"):
+        alunos = alunos
+
+        turmas = st.selectbox('Selecione a turma:', ['Extensivo','Esparta'])
+
+        if turmas == 'Extensivo':
+            alunos = alunos[~alunos['Turma'].str.contains("Esparta")]
+        if turmas == 'Esparta':
+            alunos = alunos[alunos['Turma'].str.contains("Esparta")]
+
+    elif "Esparta 2º" in turma:
+        alunos = alunos[alunos['Turma'].str.contains("Esparta 2º")]
+    elif "Esparta 3º" in turma:
+        alunos = alunos[alunos['Turma'].str.contains("Esparta 3º")]
+    else:
+        alunos = alunos[~alunos['Turma'].str.contains("Esparta")]
 
     alunos['Nome'] = alunos['Nome'].fillna('').astype(str)
     alunos = alunos[alunos['Nome'] != '']
@@ -605,13 +620,15 @@ def mostrar_gamificacao(nome, permissao, email):
     elapsed_time = end_time - start_time
     update_progress(10)
 
-    presenca_aulasT2 = ler_planilha("1qV-TL1B26Xhrmg7w5JkO6RPRSlaD3Li3saeBRtQZJD0", "Streamlit | Presença nas aulas | Tarde 2!A1:R")
+    presenca_aulasE3 = ler_planilha("1EDQdQqTrwAWxjUKvXbiOYPFhvNnKFiaS8DGm6hAVvF4", "Streamlit | Presença nas aulas | Esparta 3º!A1:R")
+    #presenca_aulasT2 = ler_planilha("1qV-TL1B26Xhrmg7w5JkO6RPRSlaD3Li3saeBRtQZJD0", "Streamlit | Presença nas aulas | Tarde 2!A1:R")
     #presenca_aulasT2 = ler_planilha("1rq83WLY5Wy6jZMtf54oB2wfhibq_6MywEcVV9SK60oI", "Streamlit | Presença nas aulas | Tarde 2!A1:R")
     
     end_time = time.time()
     elapsed_time = end_time - start_time
     update_progress(20)
 
+    presenca_aulasE2N = ler_planilha("1bLUt5GVLDidmUnYN_ZbxdKQL5vsYeJep4lJDEoWayOk", "Streamlit | Presença nas aulas | Esparta 2º + Natureza!A1:R")
     #presenca_aulasNT1 = ler_planilha("10ocwUa69s-3c_FMpNMWq6CRooGooa0-9K19rFwm8oEo", "Streamlit | Presença nas aulas | Tarde 1 (Nat)!A1:R")
     #presenca_aulasNT1 = ler_planilha("1rq83WLY5Wy6jZMtf54oB2wfhibq_6MywEcVV9SK60oI", "Streamlit | Presença nas aulas | Tarde 1 (Nat)!A1:R")
 
@@ -625,8 +642,9 @@ def mostrar_gamificacao(nome, permissao, email):
     elapsed_time = end_time - start_time
     update_progress(40)
     
-    #presenca_aulas_aux = pd.concat([presenca_aulasT2, presenca_aulasMT1], axis=0)
-    presenca_aulas_aux = presenca_aulasMT
+    presenca_aulas_aux2 = pd.concat([presenca_aulasE3, presenca_aulasMT], axis=0)
+    presenca_aulas_aux = pd.concat([presenca_aulas_aux2, presenca_aulasE2N], axis=0)
+    #presenca_aulas_aux = presenca_aulasMT
     
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -667,7 +685,7 @@ def mostrar_gamificacao(nome, permissao, email):
     presenca_nota_simulado['Pontuação_Nota_Simulado'] = presenca_nota_simulado['Pontuação Nota'].fillna(0).astype(int)
     duvidas_monitoria['Pontuação_Duvidas_Monitoria'] = duvidas_monitoria['Pontuação'].fillna(0).astype(int)
     presenca_aulas_2fase['Pontuação_Presença_2Fase'] = presenca_aulas_2fase['Pontuação'].fillna(0).astype(int)
-
+    
     #engajamento_plataforma = engajamento_plataforma[engajamento_plataforma['Pontuação_Engajamento_Plataforma'] > 0]
     engajamento_plataforma['Data de conclusão'] = pd.to_datetime(engajamento_plataforma['Data de conclusão'], format='%d/%m/%Y %H:%M:%S', errors='coerce')
     engajamento_plataforma['Semana'] = engajamento_plataforma['Data de conclusão'].apply(lambda x: x.isocalendar()[1] if pd.notnull(x) else None)
@@ -719,9 +737,9 @@ def mostrar_gamificacao(nome, permissao, email):
     gamificacao_semana4 = pd.concat([gamificacao_semana3, nota_simulado_semana], axis=0)
     gamificacao_semana5 = pd.concat([gamificacao_semana4, duvidas_monitoria_semana], axis=0)
     gamificacao_semana6 = pd.concat([gamificacao_semana5, engajamento_plataforma_semana], axis=0)
-
+    
     gamificacao_semana6 = gamificacao_semana6[gamificacao_semana6['Semana'] > 0]
-
+    
     #engajamento_plataforma2 = engajamento_plataforma.groupby(['Nome do aluno(a)','Turma']).sum().reset_index()
     engajamento_plataforma2 = engajamento_plataforma.groupby(['Nome do aluno(a)', 'Turma']).agg({'Pontuação_Engajamento_Plataforma': 'sum'}).reset_index()
     #presenca_aulas2 = presenca_aulas.groupby(['Nome do aluno(a)','Turma']).sum().reset_index()
@@ -783,10 +801,22 @@ def mostrar_gamificacao(nome, permissao, email):
                 gamificacao_final['Pontuação_Presença_2Fase']
             )
         
-        gamificacao_final['Pontuação_Engajamento_Plataforma_Normalizada'] = gamificacao_final['Pontuação_Engajamento_Plataforma'] / gamificacao_final['Pontuação_Engajamento_Plataforma'].max()
-        gamificacao_final['Pontuação_Presença_Aulas_Normalizada'] = (gamificacao_final['Pontuação_Presença_Aulas'] + gamificacao_final['Pontuação_Presença_2Fase'])  / (gamificacao_final['Pontuação_Presença_Aulas'].max() + gamificacao_final['Pontuação_Presença_2Fase'].max())
+        #gamificacao_final['Pontuação_Engajamento_Plataforma_Normalizada'] = gamificacao_final['Pontuação_Engajamento_Plataforma'] / gamificacao_final['Pontuação_Engajamento_Plataforma'].max()
+        #gamificacao_final['Pontuação_Presença_Aulas_Normalizada'] = (gamificacao_final['Pontuação_Presença_Aulas'] + gamificacao_final['Pontuação_Presença_2Fase'])  / (gamificacao_final['Pontuação_Presença_Aulas'].max() + gamificacao_final['Pontuação_Presença_2Fase'].max())
         #gamificacao2['Pontuação_Presença_Mentoria_Normalizada'] = gamificacao2['Pontuação_Presença_Mentoria'] / gamificacao2['Pontuação_Presença_Mentoria'].max()    
 
+        gamificacao_final['Pontuação_Engajamento_Plataforma_Normalizada'] = np.where(
+            gamificacao_final['Pontuação_Engajamento_Plataforma'].max() == 0, 
+            0, 
+            gamificacao_final['Pontuação_Engajamento_Plataforma'] / gamificacao_final['Pontuação_Engajamento_Plataforma'].max()
+        )
+
+        gamificacao_final['Pontuação_Presença_Aulas_Normalizada'] = np.where(
+            gamificacao_final['Pontuação_Presença_Aulas'].max() == 0, 
+            0, 
+            gamificacao_final['Pontuação_Presença_Aulas'] / gamificacao_final['Pontuação_Presença_Aulas'].max()
+        )
+        
         gamificacao_final['Pontuação_Presença_Mentoria_Normalizada'] = np.where(
             gamificacao_final['Pontuação_Presença_Mentoria'].max() == 0, 
             0, 
@@ -812,10 +842,13 @@ def mostrar_gamificacao(nome, permissao, email):
         )       
 
         gamificacao3 = gamificacao_final.sort_values(by = 'Pontuação', ascending = False)
-        gamificacao3 = gamificacao3[gamificacao3['Pontuação'] >= 0]
+        #gamificacao3 = gamificacao3[gamificacao3['Pontuação'] >= 0]
 
         #pont_niveis = [400, 1000, 1900, 2800, 3700, 5000]
-        pont_niveis = [600, 1300, 2200, 3200, 4300, 5600]
+        if turmas == 'Extensivo':
+            pont_niveis = [600, 1300, 2200, 3200, 4300, 5600]
+        if turmas == 'Esparta':
+            pont_niveis = [400, 800, 1300, 2000, 2600, 3400]
 
         gamificacao3['Nível'] = gamificacao3['Pontuação'].apply(definir_nivel, args=(pont_niveis[0], pont_niveis[1], pont_niveis[2], pont_niveis[3], pont_niveis[4], pont_niveis[5]))
         

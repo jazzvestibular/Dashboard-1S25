@@ -109,7 +109,7 @@ def mostrar_formulario_login():
     entrar_button = col5.button('Entrar', key='b20')
     ChangeButtonColour('Entrar', 'white', '#9E089E')
 
-    tabela_usuarios = ler_planilha("18-fWO9nMKfaiP2JTQuB31cQQMgj5-qI5lTXD18w0uMo", "Streamlit | Usuarios!A1:E1000")
+    tabela_usuarios = ler_planilha("18-fWO9nMKfaiP2JTQuB31cQQMgj5-qI5lTXD18w0uMo", "Streamlit | Usuarios!A1:G1000")
     #st.dataframe(tabela_usuarios)
     lista_emails = tabela_usuarios["Email"].tolist()
     #st.write(lista_emails)
@@ -133,17 +133,17 @@ def mostrar_formulario_login():
 
                 if tabela_usuarios.loc[indice_email, "Permissão"] != 'Responsável':
                     #st.write('Entrei3')
-                    return True, tabela_usuarios.loc[indice_email, "Permissão"], tabela_usuarios.loc[indice_email, "Nome"], tabela_usuarios.loc[indice_email, "Email"]
+                    return True, tabela_usuarios.loc[indice_email, "Permissão"], tabela_usuarios.loc[indice_email, "Nome"], tabela_usuarios.loc[indice_email, "Email"], tabela_usuarios.loc[indice_email, "Turma"]
                 else:
-                    return True, tabela_usuarios.loc[indice_email, "Permissão"], tabela_usuarios.loc[indice_email, "Aluno (responsável)"], tabela_usuarios.loc[indice_email, "Email"]
+                    return True, tabela_usuarios.loc[indice_email, "Permissão"], tabela_usuarios.loc[indice_email, "Aluno (responsável)"], tabela_usuarios.loc[indice_email, "Email"], tabela_usuarios.loc[indice_email, "Turma"]
             else:
                 st.error("Senha incorreta. Tente novamente.")
-                return False, "Sem Permissão", "Sem Nome", "Sem Email"
+                return False, "Sem Permissão", "Sem Nome", "Sem Email", "Sem Turma"
         else:
             st.error("Email não encontrado. Verifique o email fornecido.")
-            return False, "Sem Permissão", "Sem Nome",  "Sem Email"
+            return False, "Sem Permissão", "Sem Nome",  "Sem Email", "Sem Turma"
 
-    return False, "Sem Permissão", "Sem Nome",  "Sem Email"
+    return False, "Sem Permissão", "Sem Nome",  "Sem Email", "Sem Turma"
         
 def mostrar_tela_login():
 
@@ -160,30 +160,35 @@ def mostrar_tela_login():
     if "Email" not in st.session_state:
         st.session_state.email = "Sem Email"
 
+    if "Turma" not in st.session_state:
+        st.session_state.turma = "Sem Turma"
+
     if st.session_state.logged_in:
         tipo_usuario = st.session_state.get("tipo_usuario", None)
         nome_usuario = st.session_state.get("nome_usuario", None)
         Email = st.session_state.get("Email", None)
-        return True, tipo_usuario, nome_usuario, Email
+        Turma = st.session_state.get("Turma", None)
+        return True, tipo_usuario, nome_usuario, Email, Turma
 
     if not st.session_state.logged_in:
         #st.write('Entrei0')
-        login_ok, tipo_usuario, nome_usuario, Email = mostrar_formulario_login()
+        login_ok, tipo_usuario, nome_usuario, Email, Turma = mostrar_formulario_login()
         #st.write('Entrei04')
         if login_ok:
             st.session_state.tipo_usuario = tipo_usuario
             st.session_state.nome_usuario = nome_usuario
             st.session_state.Email = Email
+            st.session_state.Turma = Turma
             i = 0
             if i == 0:
                 st.experimental_rerun()
                 i = i + 1
-            return True, st.session_state.tipo_usuario, st.session_state.nome_usuario, st.session_state.Email
+            return True, st.session_state.tipo_usuario, st.session_state.nome_usuario, st.session_state.Email, st.session_state.Turma
         
-        return False, "Sem Permissão", "Sem Nome", "Sem Email"
+        return False, "Sem Permissão", "Sem Nome", "Sem Email", "Sem Turma"
 
     else:
-        return True, st.session_state.tipo_usuario, st.session_state.nome_usuario, st.session_state.Email
+        return True, st.session_state.tipo_usuario, st.session_state.nome_usuario, st.session_state.Email, st.session_state.Turma
 
 
 
