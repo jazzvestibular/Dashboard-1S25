@@ -171,9 +171,9 @@ def mostrar_tela_login():
         return True, tipo_usuario, nome_usuario, Email, Turma
 
     if not st.session_state.logged_in:
-        st.write('Entrei0')
+        #st.write('Entrei0')
         login_ok, tipo_usuario, nome_usuario, Email, Turma = mostrar_formulario_login()
-        st.write(login_ok, tipo_usuario, nome_usuario, Email, Turma)
+        #st.write(login_ok, tipo_usuario, nome_usuario, Email, Turma)
         #st.write('Entrei04')
         if login_ok:
             st.session_state.tipo_usuario = tipo_usuario
