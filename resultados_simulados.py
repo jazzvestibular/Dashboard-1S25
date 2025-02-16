@@ -345,7 +345,7 @@ def tabela_pontos(df_melhor, df_pior):
     if 'Competência' in df_melhor.columns:
         df_melhor['Competência'] = df_melhor['Competência'].apply(lambda x: "🟢 " + x)
         df_melhor.rename(columns = {'Competência':'Assunto'}, inplace = True)
-        df_pior['Competência'] = df_pior['Competência'].apply(lambda x: "🟢 " + x)
+        df_pior['Competência'] = df_pior['Competência'].apply(lambda x: "🔴 " + x)
         df_pior.rename(columns = {'Competência':'Assunto'}, inplace = True)
     else:
         df_melhor['Assunto'] = df_melhor['Assunto'].apply(lambda x: "🟢 " + x)
