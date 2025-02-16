@@ -1247,6 +1247,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         elif simulado_selecionado == 'Simulado FGV 01':
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 01!A1:L4000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | FGV 01!A1:J4000")
 
         elif simulado_selecionado == 'Simulado FGV 02':
 
@@ -1273,7 +1274,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Semana 01!A1:L3000")
 
         '''
-
+        
         #### BASES INSPER
 
         base_resultados_matbasica = ler_planilha("1iLxsOaDPsyraduRGj_kZWmuEMRqo5VSGURKWuXD40M8", "RelSimulado | Matemática Básica!A1:I3000")
@@ -2340,7 +2341,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                         tabela_pontos(ciencias_tabela_verde_ordenado, ciencias_tabela_vermelho_ordenado)
 
             
-            if simulado_selecionado[:15] == 'Simulado Insper':
+            if (simulado_selecionado[:15] == 'Simulado Insper' or simulado_selecionado[:12] == 'Simulado FGV'):
 
                 base_redacao['Acerto'] = 0.00
                 base_redacao['Login do aluno(a)'] = base_redacao['Login do aluno(a)'].apply(extract_login)
