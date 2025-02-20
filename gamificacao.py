@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 from plotly.subplots import make_subplots
 from PIL import Image
 import numpy as np
-from logs import escrever_planilha
+from logs import escrever_planilha, escrever_planilha_pontos
 import datetime
 import pytz
 
@@ -854,7 +854,17 @@ def mostrar_gamificacao(nome, permissao, email, turma):
             pont_niveis = [400, 800, 1300, 2000, 2600, 3400]
 
         gamificacao3['Nível'] = gamificacao3['Pontuação'].apply(definir_nivel, args=(pont_niveis[0], pont_niveis[1], pont_niveis[2], pont_niveis[3], pont_niveis[4], pont_niveis[5]))
-        
+
+        data_to_write = [gamificacao3.columns.tolist()] + gamificacao3.values.tolist()  # Inclui cabeçalhos
+
+        if turmas == 'Extensivo':
+
+            escrever_planilha_pontos("1UPJ-6MBIUEhhBTdB3GGXUhR1zjbK29gYJbhg-K-rhE4", data_to_write, "Pontuação Extensivo")
+
+        if turmas == 'Esparta':
+
+            escrever_planilha_pontos("1UPJ-6MBIUEhhBTdB3GGXUhR1zjbK29gYJbhg-K-rhE4", data_to_write, "Pontuação Esparta")
+
         gamificacao3_aluno = gamificacao3[gamificacao3['Nome do aluno(a)'] == nome_selecionado].reset_index(drop = True)
 
         #gamificacao3_medias = gamificacao3.drop(columns=['Nome do aluno(a)', 'Turma']).mean().reset_index()
