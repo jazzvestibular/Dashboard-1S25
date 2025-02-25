@@ -845,12 +845,13 @@ def mostrar_gamificacao(nome, permissao, email, turma):
         )       
 
         gamificacao3 = gamificacao_final.sort_values(by = 'Pontuação', ascending = False)
+
         #gamificacao3 = gamificacao3[gamificacao3['Pontuação'] >= 0]
 
         #pont_niveis = [400, 1000, 1900, 2800, 3700, 5000]
         if turmas == 'Extensivo':
             pont_niveis = [600, 1300, 2200, 3200, 4300, 5600]
-        if turmas == 'Esparta':
+        if (turmas == 'Esparta 2º' or turmas == 'Esparta 3º' or turmas == 'Esparta'):
             pont_niveis = [400, 800, 1300, 2000, 2600, 3400]
 
         gamificacao3['Nível'] = gamificacao3['Pontuação'].apply(definir_nivel, args=(pont_niveis[0], pont_niveis[1], pont_niveis[2], pont_niveis[3], pont_niveis[4], pont_niveis[5]))

@@ -1180,11 +1180,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             st.warning("Por favor, escolha um(a) aluno(a)!")
             st.stop()
 
-        turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma'].iloc[0]
+    turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma'].iloc[0]
 
-        data_hoje_brasilia, hora_atual_brasilia = dia_hora()
-        data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", nome_selecionado, email]]
-        escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
+    data_hoje_brasilia, hora_atual_brasilia = dia_hora()
+    data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", nome_selecionado, email]]
+    escrever_planilha("1NN--vZIFXNiCf10r48XhF2HSRhaan7uu8y991_UDuYM", data_to_write, "Logs | 1S25")
 
     progress_bar.progress(50)
     percentage_text.text("50%")
