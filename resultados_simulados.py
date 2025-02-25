@@ -708,7 +708,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
 
                     st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
 
-                    if vestibular == 'Semana 01':
+                    if (vestibular == 'Semana 01' or vestibular == 'Esparta 3º'):
 
                         st.markdown(
                             f"""
@@ -1193,15 +1193,15 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01']# + ['Simulado Insper 02'] + ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] #+ ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
-            simulados = ["Escolha o simulado"]
+            simulados = ["Escolha o simulado"] + ['Simulado 01']
 
-        elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º'):
+        elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2'):
 
-            simulados = ["Escolha o simulado"]
+            simulados = ["Escolha o simulado"] + ['Simulado 01']
 
         
 
@@ -1272,6 +1272,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         elif simulado_selecionado == 'Simulado Semana 01':
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Semana 01!A1:L3000")
+
+        elif (simulado_selecionado == 'Simulado 01' and (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 2º 01!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 2º 01!A1:J4000")
+
+        elif (simulado_selecionado == 'Simulado 01' and (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 01!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 3º 01!A1:J4000")
 
         '''
         
@@ -1557,7 +1567,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         base = base_resultados_simu_selecionado.copy()
 
-        base.rename(columns = {'atividade_nome':'Nome da avaliação','turma':'Turma','aluno_nome':'Nome do aluno(a)','aluno_login':'Login do aluno(a)','num_exercicio':'Número da questão','certo_ou_errado':'Certo ou errado','valor_do_exercicio':'Valor da questão','frente':'Frente'}, inplace = True)
+        base.rename(columns = {'atividade_nome':'Nome da avaliação','turma':'Turma','aluno_nome':'Nome do aluno(a)','aluno_login':'Login do aluno(a)','num_exercicio':'Número da questão','certo_ou_errado':'Certo ou errado','valor_do_exercicio':'Valor da questão','frente':'Frente','turma_jazz':'Turma Jazz'}, inplace = True)
 
         #base['Valor da questão'] = base['Valor da questão'].apply(lambda x: float(str(x).replace(".", "").replace(",", ".")))
 
@@ -1574,13 +1584,14 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         base['Fez questão'] = base['Certo ou errado'].apply(lambda x: 1.00 if x in ['certo', 'errado'] else 0.00)
 
-        resultados_gerais = base.groupby(['Nome da avaliação','Turma','Nome do aluno(a)','Login do aluno(a)','Simulado','Estratégia',]).sum().reset_index()
+        resultados_gerais = base.groupby(['Nome da avaliação','Turma','Nome do aluno(a)','Login do aluno(a)','Simulado','Estratégia','Turma Jazz']).sum().reset_index()
 
         progress_bar.progress(0.6)
         percentage_text.text("60%")
 
-        resultados_gerais2 = resultados_gerais.groupby(['Turma','Nome do aluno(a)','Login do aluno(a)','Simulado','Estratégia']).sum().reset_index()
+        resultados_gerais2 = resultados_gerais.groupby(['Turma','Nome do aluno(a)','Login do aluno(a)','Simulado','Estratégia','Turma Jazz']).sum().reset_index()
         resultados_gerais2_aux = resultados_gerais2.copy()
+
         for i in range(len(resultados_gerais2_aux['Login do aluno(a)'])):
             resultados_gerais2_aux['Nota na questão'][i] = 1.25*resultados_gerais2_aux['Nota na questão'][i]
             resultados_gerais2_aux['Novo Nota na questão'][i] = 1.25*resultados_gerais2_aux['Novo Nota na questão'][i]
@@ -1617,6 +1628,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         resultados_gerais3["Login do aluno(a)"] = resultados_gerais3["Login do aluno(a)"].apply(extract_login)
         nome_aluno3 = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Nome do aluno(a)'].reset_index()
         turma_aluno = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma'].reset_index()
+        turma_jazz = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma Jazz'].reset_index(drop = True)
 
         if simulado_selecionado == 'Simulado Insper 05':
 
@@ -1845,6 +1857,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'FGV Total', '0', '0')
 
+            if "Simulado 01" in simulado_selecionado:
+
+                if (turma == 'Esparta 3º' or turma_jazz[0] == 'Esparta 3º 1' or turma_jazz[0] == 'Esparta 3º 2'):
+
+                    cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0')
+
+                if (turma == 'Esparta 2º' or turma_jazz[0] == 'Esparta 2º 1' or turma_jazz[0] == 'Esparta 2º 2'):
+
+                    cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 2º', '0', '0')
+            
             if "Semana 01" in simulado_selecionado:
 
                 cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0]/1.25,1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))/1.25), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Semana 01', '0', '0')
