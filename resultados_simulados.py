@@ -708,7 +708,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
 
                     st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
 
-                    if (vestibular == 'Semana 01' or vestibular == 'Esparta 3º'):
+                    if (vestibular == 'Semana 01' or vestibular == 'Esparta 3º' or vestibular == 'Esparta 2º'):
 
                         st.markdown(
                             f"""
@@ -1857,15 +1857,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'FGV Total', '0', '0')
 
+
             if "Simulado 01" in simulado_selecionado:
 
                 if (turma == 'Esparta 3º' or turma_jazz[0] == 'Esparta 3º 1' or turma_jazz[0] == 'Esparta 3º 2'):
 
                     cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0')
 
-                if (turma == 'Esparta 2º' or turma_jazz[0] == 'Esparta 2º 1' or turma_jazz[0] == 'Esparta 2º 2'):
+                if (turma == 'Esparta 2º' or turma_jazz[0] == 'Esparta 2º'):
 
-                    cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 2º', '0', '0')
+                    cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 2º', '0', '0')
             
             if "Semana 01" in simulado_selecionado:
 
@@ -2318,6 +2319,13 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                                     """,
                                     unsafe_allow_html=True
                                 )
+                        
+                        html_br="""
+                            <br>
+                            """
+
+                        st.markdown(html_br, unsafe_allow_html=True)
+
                     else:
                         st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
@@ -2329,6 +2337,12 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                                     """,
                                     unsafe_allow_html=True
                                 )
+                        
+                        html_br="""
+                            <br>
+                            """
+
+                        st.markdown(html_br, unsafe_allow_html=True)
 
                 #resultados_gerais_disciplina3_fim.drop(columns='level_0', inplace=True)
                 resultados_gerais_disciplina3_fim = resultados_gerais_disciplina3_fim.sort_values(by = 'Acerto', ascending = False)
