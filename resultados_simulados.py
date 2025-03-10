@@ -1193,7 +1193,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] #+ ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02']#+ ['Simulado Insper 03'] + ['Simulado Insper 04'] + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
@@ -1252,6 +1252,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         elif simulado_selecionado == 'Simulado FGV 02':
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 02!A1:L4000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | FGV 02!A1:J4000")
 
         elif simulado_selecionado == 'Simulado FGV 03':
 
