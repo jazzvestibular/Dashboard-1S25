@@ -150,7 +150,7 @@ def mostrar_tela_login():
     estado = get_estado()
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-    
+    ### Teste 2
     if "tipo_usuario" not in st.session_state:
         st.session_state.tipo_usuario = "Sem Permissão"
 
