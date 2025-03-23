@@ -146,7 +146,7 @@ def mostrar_formulario_login():
     return False, "Sem Permissão", "Sem Nome",  "Sem Email", "Sem Turma"
         
 def mostrar_tela_login():
-    ### Teste PC 2
+    ### Teste PC
     estado = get_estado()
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
