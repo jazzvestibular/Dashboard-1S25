@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Jazz Vestibular", page_icon="./logo_jazz_menor.png", layout="wide")
 
 #st.set_option('client.caching', False)
-st.cache_data.clear()
+#st.cache_data.clear()
 
 import streamlit.components.v1 as components
 from alunos import mostrar_alunos
