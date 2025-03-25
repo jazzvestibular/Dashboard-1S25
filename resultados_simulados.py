@@ -2209,7 +2209,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     if simulado_selecionado != 'Simulado Insper 05':
 
-                        cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Insper', '0', '0')
+                        cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
                     else:
 
