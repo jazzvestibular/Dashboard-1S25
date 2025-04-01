@@ -720,7 +720,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
                         
-                        if simulado == '2 Geral':
+                        if (simulado == '2 Geral' or simulado == '3 Geral'):
 
                             st.markdown(
                                 f"""
@@ -742,7 +742,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if simulado == '2 Matemática':
+                        if (simulado == '2 Matemática' or simulado == '3 Matemática'):
 
                             st.markdown(
                                 f"""
@@ -753,7 +753,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if simulado == '1 Linguagens' or simulado == '2 Linguagens' or simulado == '1 Humanas':
+                        if simulado == '1 Linguagens' or simulado == '2 Linguagens' or simulado == '1 Humanas' or simulado == '3 Linguagens':
 
                             st.markdown(
                                 f"""
@@ -764,7 +764,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if simulado == '2 Humanas':
+                        if simulado == '2 Humanas' or simulado == '3 Humanas':
 
                             st.markdown(
                                 f"""
