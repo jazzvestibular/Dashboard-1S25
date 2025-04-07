@@ -851,7 +851,7 @@ def mostrar_gamificacao(nome, permissao, email, turma):
         #pont_niveis = [400, 1000, 1900, 2800, 3700, 5000]
         if turmas == 'Extensivo':
             #pont_niveis = [600, 1300, 2200, 3200, 4300, 5600]
-            pont_niveis = [600, 1300, 2200, 3400, 4700, 6200]
+            pont_niveis = [600, 1300, 2200, 3400, 4700, 7200]
         if (turmas == 'Esparta 2º' or turmas == 'Esparta 3º' or turmas == 'Esparta'):
             pont_niveis = [400, 800, 1300, 2000, 2600, 3400]
 
