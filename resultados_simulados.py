@@ -720,7 +720,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
                         
-                        if (simulado == '2 Geral' or simulado == '3 Geral'):
+                        if (simulado == '2 Geral' or simulado == '3 Geral' or simulado == '4 Geral' or simulado == '5 Geral' or simulado == '6 Geral' or simulado == '7 Geral'):
 
                             st.markdown(
                                 f"""
@@ -742,7 +742,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if (simulado == '2 Matemática' or simulado == '3 Matemática'):
+                        if (simulado == '2 Matemática' or simulado == '3 Matemática' or simulado == '4 Matemática' or simulado == '5 Matemática' or simulado == '6 Matemática' or simulado == '7 Matemática'):
 
                             st.markdown(
                                 f"""
@@ -753,7 +753,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if simulado == '1 Linguagens' or simulado == '2 Linguagens' or simulado == '1 Humanas' or simulado == '3 Linguagens':
+                        if simulado == '1 Linguagens' or simulado == '2 Linguagens' or simulado == '1 Humanas' or simulado == '3 Linguagens' or simulado == '4 Linguagens' or simulado == '5 Linguagens' or simulado == '6 Linguagens' or simulado == '7 Linguagens':
 
                             st.markdown(
                                 f"""
@@ -764,7 +764,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                                 unsafe_allow_html=True
                             )
 
-                        if simulado == '2 Humanas' or simulado == '3 Humanas':
+                        if simulado == '2 Humanas' or simulado == '3 Humanas' or simulado == '4 Humanas' or simulado == '5 Humanas' or simulado == '6 Humanas' or simulado == '7 Humanas':
 
                             st.markdown(
                                 f"""
@@ -1249,15 +1249,15 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04']# + ['Simulado Insper 05'] + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04'] + ['Simulado Insper 05']# + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04']
 
         elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04']
 
         simulado_selecionado = st.selectbox('Selecione o simulado:', simulados)
 
@@ -1345,6 +1345,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 2º 03!A1:L3000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 2º 03!A1:J4000")
 
+        elif (simulado_selecionado == 'Simulado 04' and (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 2º 04!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 2º 04!A1:J4000")
+
         elif (simulado_selecionado == 'Simulado 01' and (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2')):
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 01!A1:L3000")
@@ -1359,6 +1364,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 03!A1:L3000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 3º 03!A1:J4000")
+
+        elif (simulado_selecionado == 'Simulado 04' and (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 04!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 3º 04!A1:J4000")
 
         '''
         
@@ -1518,7 +1528,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         elif simulado_selecionado2 == 'Simulado Nacional Insper':
 
-            simulado_selecionado = 'Simulado Insper 05'
+            simulado_selecionado = 'Simulado Insper 06'
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 05!A1:L24000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 05!A1:J22000")  
@@ -1707,7 +1717,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         turma_aluno = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma'].reset_index()
         turma_jazz = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma Jazz'].reset_index(drop = True)
 
-        if simulado_selecionado == 'Simulado Insper 05':
+        if simulado_selecionado == 'Simulado Insper 06':
 
             resultado_2fase = ler_planilha("1aAxlTljt6SNvrZQSbHbZrhlG1EBfdidWCbFaFkz9EqU", "Streamlit | Simulado Nacional 2ª fase Insper!A1:I")
             
@@ -1920,7 +1930,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
             if "Insper" in simulado_selecionado:
 
-                if simulado_selecionado != 'Simulado Insper 05':
+                if simulado_selecionado != 'Simulado Insper 06':
 
                     cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Insper Total', '0', '0', 0)
 
@@ -1949,7 +1959,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0]/1.25,1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))/1.25), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Semana 01', '0', '0', 0)
 
-            if simulado_selecionado == 'Simulado Insper 05':
+            if simulado_selecionado == 'Simulado Insper 06':
 
                 criar_histograma_acertos(resultados_gerais3, nome_aluno3, 72)
             
@@ -2103,7 +2113,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 05':
+                    if simulado_selecionado != 'Simulado Insper 06':
 
                         cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2131,7 +2141,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'Semana 01 Matemática', '0', '0', 0)
 
-                if simulado_selecionado == 'Simulado Insper 05':
+                if simulado_selecionado == 'Simulado Insper 06':
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_mat, nome_aluno3, 24)
 
@@ -2216,7 +2226,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 05':
+                    if simulado_selecionado != 'Simulado Insper 06':
 
                         cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2244,7 +2254,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Semana 01 Linguagens', '0', '0', 0)
 
-                if simulado_selecionado == 'Simulado Insper 05':
+                if simulado_selecionado == 'Simulado Insper 06':
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_lin, nome_aluno3, 24)
 
@@ -2447,7 +2457,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 05':
+                    if simulado_selecionado != 'Simulado Insper 06':
 
                         cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2471,7 +2481,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                         cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'Esparta 2º', '0', '0', simulado_selecionado[-1]+' Humanas')
 
-                if simulado_selecionado == 'Simulado Insper 05':
+                if simulado_selecionado == 'Simulado Insper 06':
 
                         criar_histograma_acertos(resultados_gerais_disciplina3_fim, nome_aluno3, 24)
 
@@ -2593,7 +2603,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     if "Insper" in simulado_selecionado:
 
-                        if simulado_selecionado != 'Simulado Insper 05':
+                        if simulado_selecionado != 'Simulado Insper 06':
 
                             cards_principais(int(round(200+0.8*redacao_aluno_media['Nota na questão'].sum(),1)), int(round(200+0.8*200*redacao_tabela3['Resultado Geral decimal'].sum(),0)), 0, 0, 'Insper', '0', '0', 0)
                         else:
@@ -2604,7 +2614,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         
                         cards_principais(int(round(200+0.8*redacao_aluno_media['Nota na questão'].sum(),1)), int(round(200+0.8*200*redacao_tabela3['Resultado Geral decimal'].sum(),0)), 0, 0, 'FGV', '0', '0', 0)
 
-                    if simulado_selecionado == 'Simulado Insper 05':
+                    if simulado_selecionado == 'Simulado Insper 06':
 
                         criar_histograma_acertos(resultados_gerais_redacao, nome_aluno3, 1000)
 
