@@ -1948,8 +1948,14 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             if "Simulado 0" in simulado_selecionado:
 
                 if (turma == 'Esparta 3º' or turma_jazz[0] == 'Esparta 3º 1' or turma_jazz[0] == 'Esparta 3º 2'):
+
+                    if "Simulado 01" in simulado_selecionado:
                     
-                    cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0', simulado_selecionado[-1]+' Geral')
+                        cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0', simulado_selecionado[-1]+' Geral')
+
+                    else:
+
+                        cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0', simulado_selecionado[-1]+' Geral')
 
                 if (turma == 'Esparta 2º' or turma_jazz[0] == 'Esparta 2º'):
 
