@@ -740,8 +740,12 @@ def mostrar_gamificacao(nome, permissao, email, turma):
     gamificacao_semana4 = pd.concat([gamificacao_semana3, nota_simulado_semana], axis=0)
     gamificacao_semana5 = pd.concat([gamificacao_semana4, duvidas_monitoria_semana], axis=0)
     gamificacao_semana6 = pd.concat([gamificacao_semana5, engajamento_plataforma_semana], axis=0)
-    
+
     gamificacao_semana6 = gamificacao_semana6[gamificacao_semana6['Semana'] > 0]
+
+    data_to_write0 = [gamificacao_semana6.columns.tolist()] + gamificacao_semana6.values.tolist()  # Inclui cabeçalhos
+
+    escrever_planilha_pontos("1UPJ-6MBIUEhhBTdB3GGXUhR1zjbK29gYJbhg-K-rhE4", data_to_write0, "Pontuação Semanal")
     
     #engajamento_plataforma2 = engajamento_plataforma.groupby(['Nome do aluno(a)','Turma']).sum().reset_index()
     engajamento_plataforma2 = engajamento_plataforma.groupby(['Nome do aluno(a)', 'Turma']).agg({'Pontuação_Engajamento_Plataforma': 'sum'}).reset_index()
