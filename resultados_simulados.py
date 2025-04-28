@@ -636,52 +636,53 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                 st.write("")
             with col2:
 
-                st.markdown(
-                    """
-                    <hr style="border: 0px solid #9E089E; margin-bottom: -15px; margin-top: -15px">
-                    """,
-                    unsafe_allow_html=True
-                )
+                if vestibular != 'Simulado Nacional Insper 1ª fase Total':
+                    st.markdown(
+                        """
+                        <hr style="border: 0px solid #9E089E; margin-bottom: -15px; margin-top: -15px">
+                        """,
+                        unsafe_allow_html=True
+                    )
 
-                st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+                    st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
 
-                st.markdown(
-                    """
-                    <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; ">
-                        <strong>Nota</strong>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-                st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
-                
-                st.markdown(
-                        f"""
-                        <div style="background-color: white; color: #9E089E; padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px; text-align: center; font-size: 36px; margin-bottom: 10px;">
-                            <strong>{nota_aluno} / 1000</strong>
+                    st.markdown(
+                        """
+                        <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; ">
+                            <strong>Nota</strong>
                         </div>
                         """,
                         unsafe_allow_html=True
                     )
 
-                st.markdown('<div style="height: 2px;"></div>', unsafe_allow_html=True)
+                    st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+                    
+                    st.markdown(
+                            f"""
+                            <div style="background-color: white; color: #9E089E; padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px; text-align: center; font-size: 36px; margin-bottom: 10px;">
+                                <strong>{nota_aluno} / 1000</strong>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
 
-                st.markdown(
-                    f"""
-                    <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; text-align: center;  margin-top: -10px;">
-                        <strong>Média: {nota_media}</strong>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                    st.markdown('<div style="height: 2px;"></div>', unsafe_allow_html=True)
 
-                st.markdown(
-                    """
-                    <hr style="border: 0px solid #9E089E; margin-top: -1px; ">
-                    """,
-                    unsafe_allow_html=True
-                )
+                    st.markdown(
+                        f"""
+                        <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; text-align: center;  margin-top: -10px;">
+                            <strong>Média: {nota_media}</strong>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+                    st.markdown(
+                        """
+                        <hr style="border: 0px solid #9E089E; margin-top: -1px; ">
+                        """,
+                        unsafe_allow_html=True
+                    )
 
             with col3:
                 st.write("")
@@ -1046,17 +1047,6 @@ def criar_histograma_2fase(resultados, nome_aluno):
     st.plotly_chart(fig, use_container_width=True)
 
 def criar_histograma_acertos(resultados, nome_aluno, limite_max):
-    
-    st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
-
-    st.markdown(
-                        """
-                        <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; ">
-                            <strong>Distribuição de acertos</strong>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
 
     #st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
     
@@ -1066,6 +1056,17 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
 
     if limite_max < 1000:
 
+        st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+
+        st.markdown(
+                            """
+                            <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; ">
+                                <strong>Distribuição de acertos</strong>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+
         acerto_aluno = resultados[resultados['Nome do aluno(a)'] == nome_do_aluno]['Acerto'].iloc[0]
 
         # 2. Calcular a média dos acertos
@@ -1074,6 +1075,7 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
             # Calculando as médias
         media_acertos = resultados_filtrados['Acerto'].mean()
         media_acertos_jazz = resultados_filtrados[resultados_filtrados['Estratégia'] == '0. Aluno Jazz']['Acerto'].mean()
+        media_acertos_fora_jazz = resultados_filtrados[resultados_filtrados['Estratégia'] != '0. Aluno Jazz']['Acerto'].mean()
 
         # 3. Criar o histograma com a coluna 'Acerto'
         fig = go.Figure()
@@ -1091,17 +1093,17 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
             x=acerto_aluno,
             line=dict(color='blue', width=3, dash='dash'),
             annotation_text=f'Acerto {nome_do_aluno}: {acerto_aluno}',  # Texto na linha
-            annotation_position="top right",
-            annotation=dict(font_size=12, yshift=-10)  # Move a anotação um pouco para cima
+            annotation_position="top",
+            annotation=dict(font_size=12, yshift=0)  # Move a anotação um pouco para cima
         )
 
         # 5. Adicionar a linha vertical para a média
         fig.add_vline(
             x=media_acertos,
             line=dict(color='red', width=3, dash='dash'),
-            annotation_text=f'Média: {media_acertos:.1f}',  # Texto na linha
-            annotation_position="top left",
-            annotation=dict(font_size=12, yshift=0)  # Move a anotação um pouco para cima
+            annotation_text=f'Média Geral: {media_acertos:.1f}',  # Texto na linha
+            annotation_position="top",
+            annotation=dict(font_size=12, yshift=15)  # Move a anotação um pouco para cima
         )
 
         fig.add_vline(
@@ -1109,7 +1111,15 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
             line=dict(color='green', width=3, dash='dash'),
             annotation_text=f'Média Jazz: {media_acertos_jazz:.1f}',  # Texto na linha
             annotation_position="top",  # Posição da anotação
-            annotation=dict(font_size=12, yshift=10)  # Move a anotação um pouco para cima
+            annotation=dict(font_size=12, yshift=30)  # Move a anotação um pouco para cima
+        )
+
+        fig.add_vline(
+            x=media_acertos_fora_jazz,
+            line=dict(color='orange', width=3, dash='dash'),
+            annotation_text=f'Média Sem Jazz: {media_acertos_fora_jazz:.1f}',  # Texto na linha
+            annotation_position="top",  # Posição da anotação
+            annotation=dict(font_size=12, yshift=45)  # Move a anotação um pouco para cima
         )
 
         # 6. Configurações do layout
@@ -1123,11 +1133,23 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
 
     else:
 
+        st.markdown('<div style="height: 20px;"></div>', unsafe_allow_html=True)
+
+        st.markdown(
+                        """
+                        <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; ">
+                            <strong>Distribuição de nota</strong>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
         acerto_aluno = resultados[resultados['Nome do aluno(a)'] == nome_do_aluno]['Nota na questão'].iloc[0]#.reset_index(drop = True).['Acerto'].iloc[0]
         resultados_filtrados = resultados.copy()
 
         media_acertos = resultados_filtrados['Nota na questão'].mean()
         media_acertos_jazz = resultados_filtrados[resultados_filtrados['Estratégia'] == '0. Aluno Jazz']['Nota na questão'].mean()
+        media_acertos_fora_jazz = resultados_filtrados[resultados_filtrados['Estratégia'] != '0. Aluno Jazz']['Nota na questão'].mean()
 
         fig = go.Figure()
 
@@ -1144,17 +1166,17 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
             x=acerto_aluno,
             line=dict(color='blue', width=3, dash='dash'),
             annotation_text=f'Nota {nome_do_aluno}: {acerto_aluno}',  # Texto na linha
-            annotation_position="top right",
-            annotation=dict(font_size=12, yshift=-10)  # Move a anotação um pouco para cima
+            annotation_position="top",
+            annotation=dict(font_size=12, yshift=-0)  # Move a anotação um pouco para cima
         )
 
         # 5. Adicionar a linha vertical para a média
         fig.add_vline(
             x=media_acertos,
             line=dict(color='red', width=3, dash='dash'),
-            annotation_text=f'Média: {media_acertos:.1f}',  # Texto na linha
-            annotation_position="top left",
-            annotation=dict(font_size=12, yshift=0)  # Move a anotação um pouco para cima
+            annotation_text=f'Média Geral: {media_acertos:.1f}',  # Texto na linha
+            annotation_position="top",
+            annotation=dict(font_size=12, yshift=15)  # Move a anotação um pouco para cima
         )
 
         fig.add_vline(
@@ -1162,7 +1184,15 @@ def criar_histograma_acertos(resultados, nome_aluno, limite_max):
             line=dict(color='green', width=3, dash='dash'),
             annotation_text=f'Média Jazz: {media_acertos_jazz:.1f}',  # Texto na linha
             annotation_position="top",  # Posição da anotação
-            annotation=dict(font_size=12, yshift=10)  # Move a anotação um pouco para cima
+            annotation=dict(font_size=12, yshift=30)  # Move a anotação um pouco para cima
+        )
+
+        fig.add_vline(
+            x=media_acertos_fora_jazz,
+            line=dict(color='orange', width=3, dash='dash'),
+            annotation_text=f'Média Sem Jazz: {media_acertos_fora_jazz:.1f}',  # Texto na linha
+            annotation_position="top",  # Posição da anotação
+            annotation=dict(font_size=12, yshift=45)  # Move a anotação um pouco para cima
         )
 
         # 6. Configurações do layout
@@ -1204,7 +1234,9 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
     alunos['Nome'] = alunos['Nome'].fillna('').astype(str)
     alunos = alunos[alunos['Nome'] != '']
 
-    if "Esparta 2º" in turma:
+    if turma is None:
+        turma = turma
+    elif "Esparta 2º" in turma:
         alunos = alunos[alunos['Turma'].str.contains("Esparta 2º")]
     elif "Esparta 3º" in turma:
         alunos = alunos[alunos['Turma'].str.contains("Esparta 3º")]
@@ -1213,9 +1245,9 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
     else:
         alunos = alunos[~alunos['Turma'].str.contains("Esparta")]
 
-    #alunos_sn = ler_planilha("1aAxlTljt6SNvrZQSbHbZrhlG1EBfdidWCbFaFkz9EqU", "Inscritos!A1:E")
-    #alunos_sn['Nome'] = alunos_sn['Nome'].fillna('').astype(str)
-    #alunos_sn = alunos_sn[alunos_sn['Nome'] != '']
+    alunos_sn = ler_planilha("1CXPoZxZlZ4Uvu2DmW4njkqCcERdvNizQ2EfkWbhaTAc", "Inscritos!A1:E")
+    alunos_sn['Nome'] = alunos_sn['Nome'].fillna('').astype(str)
+    alunos_sn = alunos_sn[alunos_sn['Nome'] != '']
 
     if (permissao == 'Aluno' or permissao == 'Responsável' or permissao == 'Inscrito Simulado Nacional'):
 
@@ -1223,9 +1255,9 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
     
     else:
 
-        #nomes_alunos = ["Escolha o(a) aluno(a)"] + sorted(alunos_sn['Nome'].unique())
+        nomes_alunos = ["Escolha o(a) aluno(a)"] + sorted(alunos_sn['Nome'].unique())
         
-        nomes_alunos = ["Escolha o(a) aluno(a)"] + sorted(alunos['Nome'].unique())
+        #nomes_alunos = ["Escolha o(a) aluno(a)"] + sorted(alunos['Nome'].unique())
 
         nome_selecionado = st.selectbox('Selecione um(a) aluno(a):', nomes_alunos, key = 'Aluno')
 
@@ -1236,7 +1268,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             st.warning("Por favor, escolha um(a) aluno(a)!")
             st.stop()
 
-    turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma'].iloc[0]
+    #turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma'].iloc[0]
+
+    turma_aluno = alunos.loc[alunos['Nome'] == nome_selecionado, 'Turma']
+
+    # Verificar se a série está vazia e atribuir o valor 'Turma do Simulado Nacional'
+    if turma_aluno.empty:
+        turma_aluno = 'Turma do Simulado Nacional'
+    else:
+        turma_aluno = turma_aluno.iloc[0]
+
 
     data_hoje_brasilia, hora_atual_brasilia = dia_hora()
     data_to_write = [[nome, permissao, data_hoje_brasilia, hora_atual_brasilia, get_estado()['pagina_atual'], "", nome_selecionado, email]]
@@ -1249,15 +1290,19 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04'] + ['Simulado Insper 05']# + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04'] + ['Simulado Insper 05'] + ['Simulado Nacional Insper']# + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper']
 
         elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper']
+
+        elif (turma_aluno == 'Turma do Simulado Nacional'):
+
+            simulados = ["Simulado Nacional Insper"]
 
         simulado_selecionado = st.selectbox('Selecione o simulado:', simulados)
 
@@ -1293,9 +1338,9 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 05!A1:L22000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 05!A1:J22000")
 
-        elif simulado_selecionado == 'Simulado Insper 06':
+        elif simulado_selecionado == 'Simulado Nacional Insper':
 
-            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 06!A1:L4000")
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 06!A1:L14000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 06!A1:J4000")
 
         elif simulado_selecionado == 'Simulado FGV 01':
@@ -1516,7 +1561,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
     else:
 
-        simulados = ["Escolha o simulado"] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV']
+        simulados = ['Simulado Nacional Insper']#["Escolha o simulado"] + ['Simulado Nacional Insper']# + ['Simulado Nacional FGV']
 
         simulado_selecionado2 = st.selectbox('Selecione o simulado:', simulados)
 
@@ -1528,10 +1573,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         elif simulado_selecionado2 == 'Simulado Nacional Insper':
 
-            simulado_selecionado = 'Simulado Insper 06'
+            simulado_selecionado = 'Simulado Nacional Insper'
 
-            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 05!A1:L24000")
-            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 05!A1:J22000")  
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 06!A1:L24000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 06!A1:J22000")  
 
         else:
 
@@ -1717,7 +1762,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         turma_aluno = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma'].reset_index()
         turma_jazz = resultados_gerais3[resultados_gerais3['Login do aluno(a)'] == login_aluno]['Turma Jazz'].reset_index(drop = True)
 
-        if simulado_selecionado == 'Simulado Insper 06':
+        if simulado_selecionado == 'Simulado Nacional Insper':
 
             resultado_2fase = ler_planilha("1aAxlTljt6SNvrZQSbHbZrhlG1EBfdidWCbFaFkz9EqU", "Streamlit | Simulado Nacional 2ª fase Insper!A1:I")
             
@@ -1922,7 +1967,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             st.markdown(
                             """
                             <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; font-size: 24px;">
-                                <strong>1ª fase</strong>
+                                <strong>Prova Objetiva</strong>
                             </div>
                             """,
                             unsafe_allow_html=True
@@ -1930,7 +1975,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
             if "Insper" in simulado_selecionado:
 
-                if simulado_selecionado != 'Simulado Insper 06':
+                if simulado_selecionado != 'Simulado Nacional Insper':
 
                     cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Insper Total', '0', '0', 0)
 
@@ -1965,7 +2010,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0]/1.25,1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))/1.25), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Semana 01', '0', '0', 0)
 
-            if simulado_selecionado == 'Simulado Insper 06':
+            if simulado_selecionado == 'Simulado Nacional Insper':
 
                 criar_histograma_acertos(resultados_gerais3, nome_aluno3, 72)
             
@@ -2119,7 +2164,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 06':
+                    if simulado_selecionado != 'Simulado Nacional Insper':
 
                         cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2147,7 +2192,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'Semana 01 Matemática', '0', '0', 0)
 
-                if simulado_selecionado == 'Simulado Insper 06':
+                if simulado_selecionado == 'Simulado Nacional Insper':
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_mat, nome_aluno3, 24)
 
@@ -2232,7 +2277,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 06':
+                    if simulado_selecionado != 'Simulado Nacional Insper':
 
                         cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2260,7 +2305,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'Semana 01 Linguagens', '0', '0', 0)
 
-                if simulado_selecionado == 'Simulado Insper 06':
+                if simulado_selecionado == 'Simulado Nacional Insper':
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_lin, nome_aluno3, 24)
 
@@ -2463,7 +2508,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "Insper" in simulado_selecionado:
 
-                    if simulado_selecionado != 'Simulado Insper 06':
+                    if simulado_selecionado != 'Simulado Nacional Insper':
 
                         cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
@@ -2487,7 +2532,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                         cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'Esparta 2º', '0', '0', simulado_selecionado[-1]+' Humanas')
 
-                if simulado_selecionado == 'Simulado Insper 06':
+                if simulado_selecionado == 'Simulado Nacional Insper':
 
                         criar_histograma_acertos(resultados_gerais_disciplina3_fim, nome_aluno3, 24)
 
@@ -2499,7 +2544,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                         tabela_pontos(ciencias_tabela_verde_ordenado, ciencias_tabela_vermelho_ordenado)
 
             
-            if (simulado_selecionado[:15] == 'Simulado Insper' or simulado_selecionado[:12] == 'Simulado FGV'):
+            if (simulado_selecionado[:15] == 'Simulado Insper' or simulado_selecionado[:12] == 'Simulado FGV' or simulado_selecionado[:17] == 'Simulado Nacional'):
 
                 base_redacao['Acerto'] = 0.00
                 base_redacao['Login do aluno(a)'] = base_redacao['Login do aluno(a)'].apply(extract_login)
@@ -2609,7 +2654,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     if "Insper" in simulado_selecionado:
 
-                        if simulado_selecionado != 'Simulado Insper 06':
+                        if simulado_selecionado != 'Simulado Nacional Insper':
 
                             cards_principais(int(round(200+0.8*redacao_aluno_media['Nota na questão'].sum(),1)), int(round(200+0.8*200*redacao_tabela3['Resultado Geral decimal'].sum(),0)), 0, 0, 'Insper', '0', '0', 0)
                         else:
@@ -2620,7 +2665,7 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
         
                         cards_principais(int(round(200+0.8*redacao_aluno_media['Nota na questão'].sum(),1)), int(round(200+0.8*200*redacao_tabela3['Resultado Geral decimal'].sum(),0)), 0, 0, 'FGV', '0', '0', 0)
 
-                    if simulado_selecionado == 'Simulado Insper 06':
+                    if simulado_selecionado == 'Simulado Nacional Insper':
 
                         criar_histograma_acertos(resultados_gerais_redacao, nome_aluno3, 1000)
 
