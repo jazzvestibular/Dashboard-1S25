@@ -820,7 +820,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                             unsafe_allow_html=True
                         )
 
-                    if vestibular == 'FGV':
+                    if vestibular == 'FGV' or vestibular == 'Simulado Nacional FGV 1ª fase':
 
                         st.markdown(
                             f"""
@@ -831,7 +831,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
                             unsafe_allow_html=True
                         )
 
-                    if vestibular == 'FGV Total':
+                    if vestibular == 'FGV Total' or vestibular == 'Simulado Nacional FGV 1ª fase Total':
 
                         st.markdown(
                             f"""
@@ -910,7 +910,7 @@ def cards_principais(nota_aluno, nota_media, acerto_aluno, acerto_media, vestibu
 
                 if nota_aluno != 0:
 
-                    if vestibular == 'Simulado Nacional Insper 1ª fase' or vestibular == 'Simulado Nacional Insper 1ª fase Total':
+                    if vestibular == 'Simulado Nacional Insper 1ª fase' or vestibular == 'Simulado Nacional Insper 1ª fase Total' or vestibular == 'Simulado Nacional FGV 1ª fase Total' or vestibular == 'Simulado Nacional FGV 1ª fase':
 
                         st.markdown(
                         """
@@ -1290,19 +1290,19 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         if (turma == 'Manhã' or turma == 'Tarde' or turma_aluno == 'Manhã' or turma_aluno == 'Tarde'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04'] + ['Simulado Insper 05'] + ['Simulado Nacional Insper']# + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
+            simulados = ["Escolha o simulado"] + ['Simulado Semana 01'] + ['Simulado Insper 01'] + ['Simulado FGV 01'] + ['Simulado Insper 02'] + ['Simulado FGV 02'] + ['Simulado Insper 03'] + ['Simulado FGV 03'] + ['Simulado Insper 04'] + ['Simulado FGV 04'] + ['Simulado Insper 05'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV']# + ['Simulado Insper 06'] + ['Simulado FGV 01'] + ['Simulado FGV 02'] + ['Simulado FGV 03'] + ['Simulado FGV 04'] + ['Simulado FGV 05'] + ['Simulado FGV 06']
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV']
 
         elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV']
 
         elif (turma_aluno == 'Turma do Simulado Nacional'):
 
-            simulados = ["Simulado Nacional Insper"]
+            simulados = ["Escolha o simulado"] + ["Simulado Nacional Insper"] + ['Simulado Nacional FGV']
 
         simulado_selecionado = st.selectbox('Selecione o simulado:', simulados)
 
@@ -1363,9 +1363,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 04!A1:L4000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | FGV 04!A1:J4000")
 
-        elif simulado_selecionado == 'Simulado FGV 05':
+        elif simulado_selecionado == 'Simulado Nacional FGV':
 
-            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 05!A1:L4000")
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 05!A1:L17000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | FGV 05!A1:J4000")
 
         elif simulado_selecionado == 'Simulado FGV 06':
 
@@ -1561,15 +1562,17 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
     else:
 
-        simulados = ['Simulado Nacional Insper']#["Escolha o simulado"] + ['Simulado Nacional Insper']# + ['Simulado Nacional FGV']
+        simulados = ["Escolha o simulado"] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV']
 
         simulado_selecionado2 = st.selectbox('Selecione o simulado:', simulados)
 
         if simulado_selecionado2 == 'Simulado Nacional FGV':
 
-            simulado_selecionado = 'Simulado FGV 06'
+            simulado_selecionado = 'Simulado Nacional FGV'
 
-            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 06!A1:L22000")
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | FGV 05!A1:L22000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | FGV 05!A1:J22000")
+            
 
         elif simulado_selecionado2 == 'Simulado Nacional Insper':
 
@@ -1987,8 +1990,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
             if "FGV" in simulado_selecionado:
 
-                cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'FGV Total', '0', '0', 0)
+                if simulado_selecionado != 'Simulado Nacional FGV':
 
+                    cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'FGV Total', '0', '0', 0)
+
+                else:
+
+                    resultados_gerais5_40 = resultados_gerais5[resultados_gerais5['Fez questão'] > 40]
+
+                    cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5_40['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5_40['Acerto'].mean(),0)),'Simulado Nacional FGV 1ª fase Total', str(int(round(truncar(resultados_gerais_aluno['Classificação'][0],0),0)))+'º',int(len(resultados_gerais5['index'])), 0)
+                    
 
             if "Simulado 0" in simulado_selecionado:
 
@@ -2013,6 +2024,12 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             if simulado_selecionado == 'Simulado Nacional Insper':
 
                 criar_histograma_acertos(resultados_gerais3, nome_aluno3, 72)
+
+            if simulado_selecionado == 'Simulado Nacional FGV':
+
+                resultados_gerais3_aux = resultados_gerais3[resultados_gerais3['Acerto'] > 10]
+                criar_histograma_acertos(resultados_gerais3_aux, nome_aluno3, 60)
+                
             
             base_alunos_fizeram_aux = base[base['Nome do aluno(a)'].isin(alunos_fizeram['Nome do aluno(a)'])].reset_index(drop = True)
 
@@ -2176,7 +2193,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "FGV" in simulado_selecionado:
 
-                    cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+                    if simulado_selecionado != 'Simulado Nacional FGV':
+                    
+                        cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Nota na questão'][0],-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+
+                    else:
+
+                        resultados_gerais_disciplina_med_mat_10 = resultados_gerais_disciplina3_mat[resultados_gerais_disciplina3_mat['Fez questão'] > 10]
+
+                        cards_principais(int(round(resultados_matematica['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat_10['Nota na questão'].mean(),-1),0)), int(round(resultados_matematica['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_mat_10['Acerto'].mean(),-1),0)),'Simulado Nacional FGV 1ª fase', str(int(round(truncar(resultados_gerais_disciplina3_mat_aluno['Classificação'][0],-1),0)))+"º", str(int(len(resultados_gerais_disciplina3_mat['Classificação']))), 0)              
+
 
                 if "Simulado 0" in simulado_selecionado:
 
@@ -2195,6 +2221,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                 if simulado_selecionado == 'Simulado Nacional Insper':
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_mat, nome_aluno3, 24)
+
+                if simulado_selecionado == 'Simulado Nacional FGV':
+
+                    criar_histograma_acertos(resultados_gerais_disciplina3_mat, nome_aluno3, 15)
 
                 with st.container():
                     col1, col2, col3 = st.columns([5,0.1,2.5])
@@ -2289,7 +2319,17 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "FGV" in simulado_selecionado:
 
-                    cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+                    if simulado_selecionado != 'Simulado Nacional FGV':
+                    
+                        cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Nota na questão'][0],-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+
+                    else:
+
+                        resultados_gerais_disciplina_med_lin_10 = resultados_gerais_disciplina3_lin[resultados_gerais_disciplina3_lin['Fez questão'] > 10]
+
+                        cards_principais(int(round(resultados_linguagens['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin_10['Nota na questão'].mean(),-1),0)), int(round(resultados_linguagens['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lin_10['Acerto'].mean(),-1),0)),'Simulado Nacional FGV 1ª fase', str(int(round(truncar(resultados_gerais_disciplina3_lin_aluno['Classificação'][0],-1),0)))+"º", str(int(len(resultados_gerais_disciplina3_lin['Classificação']))), 0)      
+
+
 
                 if "Simulado 0" in simulado_selecionado:
 
@@ -2309,6 +2349,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                     criar_histograma_acertos(resultados_gerais_disciplina3_lin, nome_aluno3, 24)
 
+                if simulado_selecionado == 'Simulado Nacional FGV':
+
+                    criar_histograma_acertos(resultados_gerais_disciplina3_lin, nome_aluno3, 15)
+
             elif len(resultados_lingua_port['Nome do aluno(a)']) != 0:
 
                 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
@@ -2316,18 +2360,36 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                 st.markdown(
                             """
                             <div style="background-color: rgba(158, 8, 158, 0.8); color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center; font-size: 24px;">
-                                <strong>Linguagens</strong>
+                                <strong>Língua Portuguesa</strong>
                             </div>
                             """,
                             unsafe_allow_html=True
                         )
+
+                resultados_gerais_disciplina3_lp = resultados_gerais_disciplina3_lp.sort_values(by = 'Acerto', ascending = False)
+                resultados_gerais_disciplina3_lp['Classificação'] = resultados_gerais_disciplina3_lp['Acerto'].rank(method='min', ascending=False).astype(int)
+                resultados_gerais_disciplina3_lp_aluno = resultados_gerais_disciplina3_lp[resultados_gerais_disciplina3_lp['Login do aluno(a)'] == login_aluno].reset_index(drop = True)
+
                 if "Insper" in simulado_selecionado:
 
                     cards_principais(int(round(resultados_lingua_port['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Nota na questão'][0],-1),0)), int(round(resultados_lingua_port['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Acerto'][0],-1),0)),'Insper', '0', '0', 0)
 
                 if "FGV" in simulado_selecionado:
 
-                    cards_principais(int(round(resultados_lingua_port['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Nota na questão'][0],-1),0)), int(round(resultados_lingua_port['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+                    if simulado_selecionado != 'Simulado Nacional FGV':
+                    
+                        cards_principais(int(round(resultados_lingua_port['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Nota na questão'][0],-1),0)), int(round(resultados_lingua_port['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+
+                    else:
+
+                        resultados_gerais_disciplina_med_lp_10 = resultados_gerais_disciplina3_lp[resultados_gerais_disciplina3_lp['Fez questão'] > 10]
+
+                        cards_principais(int(round(resultados_lingua_port['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp_10['Nota na questão'].mean(),-1),0)), int(round(resultados_lingua_port['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_lp_10['Acerto'].mean(),-1),0)),'Simulado Nacional FGV 1ª fase', str(int(round(truncar(resultados_gerais_disciplina3_lp_aluno['Classificação'][0],-1),0)))+"º", str(int(len(resultados_gerais_disciplina3_lp['Classificação']))), 0)      
+
+
+                if simulado_selecionado == 'Simulado Nacional FGV':
+
+                    criar_histograma_acertos(resultados_gerais_disciplina3_lp, nome_aluno3, 15)
         
 
             if len(resultados_linguagens['Nome do aluno(a)']) != 0 or  len(resultados_lingua_port['Nome do aluno(a)']) != 0:
@@ -2395,6 +2457,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                             """,
                             unsafe_allow_html=True
                         )
+
+                resultados_gerais_disciplina3_ing = resultados_gerais_disciplina3_ing.sort_values(by = 'Acerto', ascending = False)
+                resultados_gerais_disciplina3_ing['Classificação'] = resultados_gerais_disciplina3_ing['Acerto'].rank(method='min', ascending=False).astype(int)
+                resultados_gerais_disciplina3_ing_aluno = resultados_gerais_disciplina3_ing[resultados_gerais_disciplina3_ing['Login do aluno(a)'] == login_aluno].reset_index(drop = True)
                 
                 if "Insper" in simulado_selecionado:
 
@@ -2402,7 +2468,20 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "FGV" in simulado_selecionado:
 
-                    cards_principais(int(round(resultados_ingles['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing['Nota na questão'][0],-1),0)), int(round(resultados_ingles['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+                    if simulado_selecionado != 'Simulado Nacional FGV':
+                    
+                        cards_principais(int(round(resultados_ingles['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing['Nota na questão'][0],-1),0)), int(round(resultados_ingles['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+
+                    else:
+
+                        resultados_gerais_disciplina_med_ing_10 = resultados_gerais_disciplina3_ing[resultados_gerais_disciplina3_ing['Fez questão'] > 10]
+
+                        cards_principais(int(round(resultados_ingles['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing_10['Nota na questão'].mean(),-1),0)), int(round(resultados_ingles['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_ing_10['Acerto'].mean(),-1),0)),'Simulado Nacional FGV 1ª fase', str(int(round(truncar(resultados_gerais_disciplina3_ing_aluno['Classificação'][0],-1),0)))+"º", str(int(len(resultados_gerais_disciplina3_ing['Classificação']))), 0)      
+
+
+                if simulado_selecionado == 'Simulado Nacional FGV':
+
+                    criar_histograma_acertos(resultados_gerais_disciplina3_ing, nome_aluno3, 15)
 
                 with st.container():
                     col1, col2, col3 = st.columns([5,0.1,2.5])
@@ -2520,7 +2599,16 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
                 if "FGV" in simulado_selecionado:
 
-                    cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+                    if simulado_selecionado != 'Simulado Nacional FGV':
+                    
+                        cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Nota na questão'][0],-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie['Acerto'][0],-1),0)),'FGV', '0', '0', 0)
+
+                    else:
+
+                        resultados_gerais_disciplina_med_cie_10 = resultados_gerais_disciplina3_fim[resultados_gerais_disciplina3_fim['Fez questão'] > 10]
+
+                        cards_principais(int(round(resultados_ciencias_fim['Nota na questão'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie_10['Nota na questão'].mean(),-1),0)), int(round(resultados_ciencias_fim['Acerto'][0],1)), int(round(truncar(resultados_gerais_disciplina_med_cie_10['Acerto'].mean(),-1),0)),'Simulado Nacional FGV 1ª fase', str(int(round(truncar(resultados_gerais_disciplina3_fim_aluno['Classificação'][0],-1),0)))+"º", str(int(len(resultados_gerais_disciplina3_fim['Classificação']))), 0)      
+
 
                 if "Simulado 0" in simulado_selecionado:
 
@@ -2535,6 +2623,10 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                 if simulado_selecionado == 'Simulado Nacional Insper':
 
                         criar_histograma_acertos(resultados_gerais_disciplina3_fim, nome_aluno3, 24)
+
+                if simulado_selecionado == 'Simulado Nacional FGV':
+
+                    criar_histograma_acertos(resultados_gerais_disciplina3_fim, nome_aluno3, 15)
 
                 with st.container():
                     col1, col2, col3 = st.columns([5,0.1,2.5])
