@@ -1338,6 +1338,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 05!A1:L22000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 05!A1:J22000")
 
+        elif simulado_selecionado == 'Simulado Insper 07':
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 07!A1:L22000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Insper 07!A1:J22000")
+
         elif simulado_selecionado == 'Simulado Nacional Insper':
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Insper 06!A1:L14000")
