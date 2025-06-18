@@ -1294,11 +1294,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
         elif (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV'] + ['Simulado 05'] + ['Simulado 06']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV'] + ['Simulado 05'] + ['Simulado 06'] + ['Simulado 07']
 
         elif (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2'):
 
-            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV'] + ['Simulado 05'] + ['Simulado 06']
+            simulados = ["Escolha o simulado"] + ['Simulado 01'] + ['Simulado 02'] + ['Simulado 03'] + ['Simulado 04'] + ['Simulado Nacional Insper'] + ['Simulado Nacional FGV'] + ['Simulado 05'] + ['Simulado 06'] + ['Simulado 07']
 
         elif (turma_aluno == 'Turma do Simulado Nacional'):
 
@@ -1417,6 +1417,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 2º 06!A1:L3000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 2º 06!A1:J4000")
 
+        elif (simulado_selecionado == 'Simulado 07' and (turma == 'Esparta 2º' or turma_aluno == 'Esparta 2º')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 2º 07!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 2º 07!A1:J4000")
+
         elif (simulado_selecionado == 'Simulado 01' and (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2')):
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 01!A1:L3000")
@@ -1446,6 +1451,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
 
             base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 06!A1:L3000")
             base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 3º 06!A1:J4000")
+
+        elif (simulado_selecionado == 'Simulado 07' and (turma == 'Esparta 3º' or turma_aluno == 'Esparta 3º 1' or turma_aluno == 'Esparta 3º 2')):
+
+            base_resultados = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "RelSimulado | Esparta 3º 07!A1:L3000")
+            base_redacao = ler_planilha("1MDgyhbr1-MSNkOcNaLcYRtJKXQoj5nQolIsznjw0YqE", "Red | Esparta 3º 07!A1:J4000")
 
         '''
         
@@ -2041,11 +2051,11 @@ def mostrar_resultados_simulados(nome, permissao, email, turma):
                         cards_principais(int(round(0.8*resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(0.8*resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0', simulado_selecionado[-1]+' Geral')
 
                     else:
-
+                        
                         cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 3º', '0', '0', simulado_selecionado[-1]+' Geral')
 
                 if (turma == 'Esparta 2º' or turma_jazz[0] == 'Esparta 2º'):
-
+                    
                     cards_principais(int(round(resultados_gerais_aluno['Novo Nota na questão'][0],1)), int(round(truncar(resultados_gerais5['Novo Nota na questão'].mean(),-1))), int(round(truncar(resultados_gerais_aluno['Acerto'][0],0),0)), int(round(resultados_gerais5['Acerto'].mean(),0)),'Esparta 2º', '0', '0', simulado_selecionado[-1]+' Geral')
             
             if "Semana 01" in simulado_selecionado:
